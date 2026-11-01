@@ -1,0 +1,105 @@
+node_modules
+.output
+.wxt
+stats.html
+stats-*.json
+tests/e2e/fixture/dist
+*.log
+
+# 本地生成与临时产物
+/output/
+/.tmp-*.json
+/tmp-imagegen-*
+/tmp/
+
+# 凭据文件绝不入库
+*.key
+*.pem
+*.p12
+*.csv
+Chrome 密码.csv
+secrets.json
+.env
+.env.*
+tests/shots/
+
+# 编辑器个人配置与测试报告
+.vscode/
+.idea/
+playwright-report/
+test-results/
+tests/.output-e2e/
+tests/.wxt-e2e-workspace/
+tests/e2e/.output-e2e/
+tests/e2e/.wxt-e2e-workspace/
+
+# 代理订阅与节点抓取产物：含个人节点地址和密钥，绝不入库
+.tmp/
+
+# 扩展导出的加密备份：含账号凭据密文，属本地导出物，不入库
+aah-backup-*.json
+
+# 一次性诊断探针：只为定位某个站点的当次问题而写，不是可复用测试。
+# 留在仓库里会误导后来的人以为它们是回归用例，且顶层 vi.mock 会污染
+# 同目录真实测试的模块图（曾让 checkin-button.test.ts 假失败 4 项）。
+tests/tmp-*.mjs
+src/**/zz-*.test.ts
+
+# 无关媒体与打包产物：来自别处的示意图、站点截图和源码 zip
+/pelican-*
+/preview.jpg
+/_preview.png
+/图片/
+/每日签到_源码版.zip
+
+# 阶段性报告：多为自动生成的过程记录，结论会被后续改动推翻
+# （它们声称的「已完成」并不准确），留在仓库里会误导后来的人。
+# 正式文档放 docs/。
+/ALL_SITES_TESTING_PLAN.md
+/AUTOMATION_VERIFICATION.txt
+/FINAL_COMPLETION_SUMMARY.md
+/GOAL_AUDIT.md
+/PROJECT_COMPLETION_REPORT.md
+/START_TESTING.md
+/verification.txt
+/UI设计方案.md
+
+# 独立的 Python 签到参考项目：与本 Chrome 扩展无引用关系，
+# 只作本地对照阅读用。混进仓库会让「这个仓库是什么」失去焦点。
+/_analyze_checkin/
+/_analyze_full/
+/_analyze_orig/
+/auto-checkin-full.zip
+
+# 参考项目压缩包（保留在本地磁盘，不入库）
+/all-api-hub-main.zip
+/anyrouter-autolog-main.zip
+/gt-crack-master.zip
+
+# npm 临时缓存
+.npm-cache/
+.pnpm-store/
+
+# 一次性改写/审计脚本与临时草稿（正式脚本放 scripts/dev-probes/）
+scripts/div-audit*.mjs
+scripts/fix-comma.mjs
+scripts/options-probe.mjs
+scripts/preview-audit.mjs
+scripts/rewrite-shell-block.mjs
+scripts/serve-dist.mjs
+scripts/shell-shot-real.mjs
+scripts/shell-verify.mjs
+scripts/wire-app-shell.mjs
+scripts/wire-v2.mjs
+scripts/views-block.txt
+
+# 临时 diff/备份/一次性探针
+*.bak
+*.diff.txt
+/tmp*.diff
+/learning-stage.diff.txt
+src/**/__probe-*.test.ts
+
+# 误创建的杂散文件（名字就是一个单引号）与一次性改写脚本
+/'
+scripts/fix-else-branch.mjs

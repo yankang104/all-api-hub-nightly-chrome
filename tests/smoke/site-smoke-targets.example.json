@@ -1,0 +1,16 @@
+{
+  "targets": [
+    {
+      "name": "可萌中转站",
+      "url": "https://api456.me/login",
+      "expectedHosts": [
+        "api456.me"
+      ],
+      "selectors": {
+        "username": "input[name=\"username\"]",
+        "password": "input[name=\"password\"]",
+        "submit": "button.semi-button-primary.w-full"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2612 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink-50: #f6f7f9;
+  --color-ink-100: #eceef2;
+  --color-ink-700: #2f3542;
+  --color-ink-800: #1f2530;
+  --color-ink-900: #151a23;
+  --color-ink-950: #0e1218;
+
+  --color-brand-400: #7c9cff;
+  --color-brand-500: #5b7cfa;
+  --color-brand-600: #4361e8;
+
+  --color-sun-100: #fff9dc;
+  --color-sun-200: #fff1a8;
+  --color-sun-400: #ffd64d;
+  --color-sun-500: #f5bd18;
+  --color-sun-600: #d99a00;
+
+  --color-coral-400: #ff8277;
+  --color-coral-500: #ff5f55;
+  --color-coral-600: #e8453d;
+
+  --color-mint-50: #ecfff9;
+  --color-mint-300: #69e6c7;
+  --color-mint-400: #2bc9a5;
+  --color-mint-500: #12ae8d;
+  --color-mint-600: #07846d;
+  --color-mint-700: #076654;
+
+  /*
+   * 只保留 breathe：它是实时执行台 LIVE 指示点唯一的「后台仍在跑」信号。
+   *
+   * 删掉的四个都没有信息价值，且各自占着同屏 infinite 动画预算：
+   *   float-in / shimmer —— 定义了但全项目零引用
+   *   sun-spin  —— 页头品牌图标的常驻旋转，纯装饰
+   *   live-scan —— 实时台的 coral 扫光条，不对应任何任务状态，
+   *                而且与失败态同色，正常运行时持续扫红光容易误读
+   */
+  --animate-breathe: breathe 2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.86); }
+}
+
+@keyframes header-field-pulse {
+  0%, 100% { opacity: 0.28; transform: scale(0.998); }
+  50% { opacity: 0.85; transform: scale(1.006); }
+}
+
+@keyframes spirit-orbit-primary {
+  from { transform: rotate(18deg) scaleX(0.78); }
+  to { transform: rotate(378deg) scaleX(0.78); }
+}
+
+@keyframes spirit-orbit-secondary {
+  from { transform: rotate(-54deg) scaleY(0.72); }
+  to { transform: rotate(-414deg) scaleY(0.72); }
+}
+
+@keyframes spirit-core-field {
+  0%, 100% { opacity: 0.24; transform: translate(-50%, -50%) scale(0.72); }
+  50% { opacity: 0.66; transform: translate(-50%, -50%) scale(1.18); }
+}
+
+@keyframes route-halo-pulse {
+  0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.75); }
+  50% { opacity: 0.72; transform: translate(-50%, -50%) scale(1.25); }
+}
+
+@keyframes shell-energy-scan {
+  from { transform: translate3d(0, -12vh, 0); opacity: 0; }
+  12% { opacity: 0.32; }
+  88% { opacity: 0.18; }
+  to { transform: translate3d(0, 112vh, 0); opacity: 0; }
+}
+
+@keyframes hero-orbit-spin {
+  to { transform: rotate(1turn); }
+}
+
+@keyframes hero-orbit-reverse {
+  to { transform: rotate(-1turn); }
+}
+
+@keyframes hero-reactor-pulse {
+  0%, 100% { opacity: 0.38; transform: scale(0.72); }
+  50% { opacity: 0.92; transform: scale(1.18); }
+}
+
+@keyframes hero-thunder-charge {
+  0%, 72%, 100% { opacity: 0.22; transform: scaleY(0.58) skewX(-16deg); }
+  78% { opacity: 1; transform: scaleY(1.16) skewX(-16deg); }
+  84% { opacity: 0.46; transform: scaleY(0.82) skewX(-16deg); }
+  90% { opacity: 0.9; transform: scaleY(1) skewX(-16deg); }
+}
+
+@keyframes hero-portal-pulse {
+  0%, 100% { opacity: 0.28; transform: scale(0.78) rotate(0deg); }
+  50% { opacity: 0.86; transform: scale(1.2) rotate(22deg); }
+}
+
+@keyframes hero-shield-glint {
+  from { transform: translate3d(-180%, 0, 0) rotate(18deg); opacity: 0; }
+  28% { opacity: 0.8; }
+  to { transform: translate3d(220%, 0, 0) rotate(18deg); opacity: 0; }
+}
+
+@keyframes hero-titan-impact {
+  0%, 86%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
+  89% { transform: translate3d(-1px, 1px, 0) rotate(-1deg); }
+  92% { transform: translate3d(2px, -1px, 0) rotate(1deg); }
+  95% { transform: translate3d(-1px, 0, 0) rotate(-0.5deg); }
+}
+
+@keyframes comic-backdrop-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(1.5%, -1%, 0); }
+}
+
+@keyframes comic-speed-shift {
+  from { transform: translate3d(-3%, 0, 0); opacity: 0.14; }
+  50% { opacity: 0.28; }
+  to { transform: translate3d(3%, 0, 0); opacity: 0.14; }
+}
+
+@keyframes comic-slash-travel {
+  0%, 10% { transform: translate3d(-125vw, 0, 0) skewX(-22deg); opacity: 0; }
+  18% { opacity: 0.78; }
+  42%, 100% { transform: translate3d(125vw, 0, 0) skewX(-22deg); opacity: 0; }
+}
+
+@keyframes comic-surface-shift {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 18px 10px, 34px 0; }
+}
+
+@keyframes comic-control-glint {
+  0%, 62%, 100% { transform: translate3d(-185%, 0, 0) skewX(-22deg); opacity: 0; }
+  70% { opacity: 0.78; }
+  88% { transform: translate3d(245%, 0, 0) skewX(-22deg); opacity: 0; }
+}
+
+@keyframes comic-icon-charge {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  48% { transform: translate3d(0, -1px, 0) rotate(-4deg); }
+  58% { transform: translate3d(0, 0, 0) rotate(4deg); }
+}
+
+@keyframes metric-energy-pass {
+  0%, 56%, 100% { transform: translate3d(-170%, 0, 0) skewX(-18deg); opacity: 0; }
+  66% { opacity: 0.72; }
+  86% { transform: translate3d(330%, 0, 0) skewX(-18deg); opacity: 0; }
+}
+
+@keyframes live-connector-flow {
+  from { background-position: 0 0; }
+  to { background-position: 0 18px; }
+}
+
+@keyframes live-step-scan {
+  0%, 46%, 100% { transform: translate3d(-130%, 0, 0) skewX(-16deg); opacity: 0; }
+  58% { opacity: 0.72; }
+  82% { transform: translate3d(260%, 0, 0) skewX(-16deg); opacity: 0; }
+}
+
+@keyframes site-card-sweep {
+  0%, 54%, 100% { transform: translate3d(-145%, 0, 0) skewX(-20deg); opacity: 0; }
+  63% { opacity: 0.48; }
+  84% { transform: translate3d(320%, 0, 0) skewX(-20deg); opacity: 0; }
+}
+
+@keyframes site-rail-charge {
+  from { transform: translate3d(-120%, 0, 0); }
+  to { transform: translate3d(480%, 0, 0); }
+}
+
+@keyframes account-row-scan {
+  0%, 38%, 100% { transform: translate3d(-145%, 0, 0) skewX(-15deg); opacity: 0; }
+  48% { opacity: 0.48; }
+  78% { transform: translate3d(430%, 0, 0) skewX(-15deg); opacity: 0; }
+}
+
+@keyframes comic-stat-pulse {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -1px, 0); }
+}
+
+@keyframes status-mystic-turn {
+  to { transform: rotate(1turn); }
+}
+
+@keyframes status-titan-entry {
+  0% { transform: translate3d(0, 0, 0) rotate(0); }
+  24% { transform: translate3d(-2px, 1px, 0) rotate(-1deg); }
+  46% { transform: translate3d(2px, -1px, 0) rotate(1deg); }
+  68% { transform: translate3d(-1px, 0, 0) rotate(-0.5deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0); }
+}
+
+@keyframes hero-portrait-charge {
+  0%, 100% { transform: scale(1.1) translate3d(0, 0, 0); }
+  50% { transform: scale(1.18) translate3d(0, -1px, 0); }
+}
+
+@keyframes detail-complete-burst {
+  from { transform: scale(0.45); opacity: 0.82; }
+  to { transform: scale(2.25); opacity: 0; }
+}
+
+@keyframes marvel-energy-reactor {
+  0%, 100% { opacity: 0.42; transform: scale(0.74); }
+  48% { opacity: 0.98; transform: scale(1.12); }
+  58% { opacity: 0.64; transform: scale(0.94); }
+}
+
+@keyframes marvel-energy-web {
+  from { transform: rotate(0deg) scale(0.9); opacity: 0.35; }
+  50% { opacity: 0.92; }
+  to { transform: rotate(180deg) scale(1.06); opacity: 0.35; }
+}
+
+@keyframes marvel-energy-bolt {
+  0%, 66%, 100% { opacity: 0.2; transform: translateY(-2px) scaleY(0.58) skewX(-15deg); }
+  72% { opacity: 1; transform: translateY(0) scaleY(1.14) skewX(-15deg); }
+  78% { opacity: 0.42; transform: translateY(1px) scaleY(0.78) skewX(-15deg); }
+  84% { opacity: 0.88; transform: translateY(0) scaleY(1) skewX(-15deg); }
+}
+
+@keyframes marvel-energy-star {
+  from { transform: rotate(0deg) scale(0.72); opacity: 0.3; }
+  50% { transform: rotate(90deg) scale(1.08); opacity: 0.92; }
+  to { transform: rotate(180deg) scale(0.72); opacity: 0.3; }
+}
+
+@keyframes marvel-energy-spark {
+  0%, 100% { opacity: 0.18; transform: translate3d(0, 0, 0) scale(0.72); }
+  45% { opacity: 0.95; transform: translate3d(2px, -3px, 0) scale(1.12); }
+  70% { opacity: 0.42; transform: translate3d(-1px, -1px, 0) scale(0.88); }
+}
+
+html, body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  letter-spacing: 0;
+  background: #e9f5f0;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  letter-spacing: 0;
+}
+
+.sunny-shell {
+  position: relative;
+  isolation: isolate;
+  background-color: transparent;
+  background-image:
+    linear-gradient(rgba(7, 132, 109, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7, 132, 109, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.comic-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 214, 77, 0.22) 0 16%, transparent 16% 100%),
+    linear-gradient(318deg, rgba(18, 174, 141, 0.14) 0 24%, transparent 24% 100%),
+    #e9f5f0;
+  pointer-events: none;
+}
+
+.comic-backdrop-panel,
+.comic-backdrop-marvel,
+.comic-backdrop-halftone,
+.comic-backdrop-speed-lines,
+.comic-energy-slash {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.comic-backdrop-panel {
+  animation: comic-backdrop-drift 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+.comic-backdrop-panel-armor {
+  inset: 0 43% 48% 0;
+  clip-path: polygon(0 0, 100% 0, 78% 72%, 25% 100%, 0 72%);
+  background:
+    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.18) 0 2px, transparent 2px 16px),
+    linear-gradient(132deg, rgba(255, 95, 85, 0.34), rgba(255, 214, 77, 0.25));
+}
+
+.comic-backdrop-panel-thunder {
+  inset: 3% 0 36% 52%;
+  clip-path: polygon(28% 0, 100% 0, 100% 78%, 68% 66%, 45% 100%, 0 58%);
+  background:
+    repeating-linear-gradient(68deg, transparent 0 19px, rgba(255, 255, 255, 0.2) 19px 21px),
+    linear-gradient(145deg, rgba(91, 124, 250, 0.22), rgba(8, 145, 178, 0.26));
+  animation-delay: -4s;
+}
+
+.comic-backdrop-panel-mystic {
+  inset: 55% 17% 0 9%;
+  clip-path: polygon(13% 18%, 46% 0, 100% 22%, 85% 100%, 7% 100%, 0 46%);
+  background:
+    repeating-conic-gradient(from 12deg at 62% 55%, rgba(255, 255, 255, 0.16) 0 2deg, transparent 2deg 17deg),
+    linear-gradient(105deg, rgba(249, 115, 22, 0.22), rgba(18, 174, 141, 0.18));
+  animation-delay: -8s;
+}
+
+.comic-backdrop-marvel {
+  top: 0;
+  right: -4%;
+  width: 64%;
+  height: 44%;
+  clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 68%);
+  background: linear-gradient(90deg, rgba(233, 245, 240, 0.96), rgba(233, 245, 240, 0.12) 42%, rgba(233, 245, 240, 0.42));
+  opacity: 0.32;
+  animation: comic-backdrop-drift 10s ease-in-out infinite -5s;
+  will-change: transform;
+}
+
+.comic-backdrop-halftone {
+  inset: 0;
+  opacity: 0.32;
+  background-image: radial-gradient(circle, rgba(31, 37, 48, 0.2) 0 1px, transparent 1.35px);
+  background-size: 13px 13px;
+  mask-image: linear-gradient(118deg, #000 0%, transparent 34%, transparent 68%, #000 100%);
+}
+
+.comic-backdrop-speed-lines {
+  top: 8%;
+  right: -8%;
+  width: 58%;
+  height: 42%;
+  clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 58%);
+  background: repeating-linear-gradient(164deg, transparent 0 15px, rgba(31, 37, 48, 0.12) 15px 17px, transparent 17px 27px);
+  animation: comic-speed-shift 4.8s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.comic-energy-slash {
+  left: 0;
+  width: 34vw;
+  height: 3px;
+  background: #ffd64d;
+  box-shadow: 0 0 8px rgba(255, 214, 77, 0.85), 0 0 18px rgba(255, 95, 85, 0.48);
+  animation: comic-slash-travel 7.5s linear infinite;
+  will-change: transform, opacity;
+}
+
+.comic-energy-slash-a { top: 27%; }
+.comic-energy-slash-b {
+  top: 72%;
+  background: #69e6c7;
+  box-shadow: 0 0 8px rgba(105, 230, 199, 0.85), 0 0 18px rgba(91, 124, 250, 0.48);
+  animation-delay: -3.75s;
+}
+
+.comic-backdrop[data-phase='running'] .comic-energy-slash {
+  animation-duration: 3.4s;
+}
+
+.comic-backdrop[data-phase='attention'] .comic-backdrop-panel-mystic {
+  animation-duration: 4.8s;
+}
+
+.comic-backdrop[data-phase='failed'] .comic-backdrop-panel-armor {
+  animation-duration: 3.8s;
+}
+
+.comic-backdrop-compact {
+  opacity: 0.72;
+}
+
+.comic-backdrop-compact .comic-backdrop-marvel {
+  opacity: 0.18;
+}
+
+.sunny-shell::before {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: 7px;
+  content: '';
+  background: #ffd64d;
+  box-shadow: 0 2px 0 #ff5f55, 0 4px 0 #12ae8d;
+}
+
+.sunny-shell[data-phase='running']::after {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1;
+  height: 1px;
+  content: '';
+  background: rgba(124, 156, 255, 0.62);
+  box-shadow: 0 0 9px rgba(91, 124, 250, 0.58), 0 0 18px rgba(105, 230, 199, 0.3);
+  animation: shell-energy-scan 7.5s linear infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.sunny-shell-compact[data-phase='running']::after {
+  display: none;
+}
+
+.sunny-header {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(105deg, rgba(255, 255, 255, 0.92), rgba(255, 249, 220, 0.88) 38%, rgba(236, 255, 249, 0.86) 72%, rgba(238, 241, 255, 0.9));
+  box-shadow: 0 14px 40px rgba(31, 37, 48, 0.07);
+  backdrop-filter: blur(16px);
+}
+
+.comic-surface {
+  position: relative;
+  isolation: isolate;
+}
+
+.comic-surface::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: '';
+  background-image:
+    radial-gradient(circle, rgba(31, 37, 48, 0.15) 0 0.8px, transparent 1px),
+    repeating-linear-gradient(112deg, transparent 0 24px, rgba(255, 95, 85, 0.055) 24px 25px, transparent 25px 46px);
+  background-size: 12px 12px, 64px 64px;
+  opacity: 0.32;
+  animation: comic-surface-shift 8s linear infinite;
+  pointer-events: none;
+}
+
+.comic-surface > * {
+  position: relative;
+  z-index: 1;
+}
+
+.sunny-header-active::after {
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  content: '';
+  border: 1px solid transparent;
+  border-top-color: rgba(67, 97, 232, 0.66);
+  border-right-color: rgba(105, 230, 199, 0.62);
+  border-bottom-color: rgba(255, 214, 77, 0.48);
+  border-left-color: rgba(8, 145, 178, 0.48);
+  border-radius: 10px;
+  animation: header-field-pulse 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.sunny-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+.sunny-actions {
+  min-height: 48px;
+}
+
+.comic-control-dock {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, rgba(255, 214, 77, 0.18), rgba(255, 255, 255, 0.72) 24%, rgba(105, 230, 199, 0.14) 72%, rgba(91, 124, 250, 0.12));
+}
+
+.comic-control-dock::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: '';
+  background-image: radial-gradient(circle, rgba(31, 37, 48, 0.18) 0 0.75px, transparent 1px);
+  background-size: 9px 9px;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.comic-control-dock > * {
+  position: relative;
+  z-index: 1;
+}
+
+.action-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  white-space: nowrap;
+}
+
+.action-btn::after,
+.launch-mode-switch::after {
+  position: absolute;
+  right: -0.65rem;
+  bottom: -0.65rem;
+  z-index: 1;
+  width: 1.4rem;
+  height: 1.4rem;
+  content: '';
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  opacity: 0.14;
+  transform: scale(0.72);
+  transition: transform 180ms ease, opacity 180ms ease;
+  pointer-events: none;
+}
+
+.action-btn:hover::after,
+.launch-mode-switch:hover::after {
+  opacity: 0.42;
+  transform: scale(1.25);
+}
+
+.action-btn-energy {
+  position: absolute;
+  inset: -30% auto -30% 0;
+  z-index: 1;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.72), transparent);
+  animation: comic-control-glint 4.6s ease-in-out infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.action-btn:nth-child(2n) .action-btn-energy { animation-delay: -1.45s; }
+.action-btn:nth-child(3n) .action-btn-energy { animation-delay: -2.9s; }
+
+.action-btn-icon,
+.launch-mode-icon {
+  position: relative;
+  z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  animation: comic-icon-charge 3.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.action-btn:nth-child(2n) .action-btn-icon { animation-delay: -1.2s; }
+.action-btn:nth-child(3n) .action-btn-icon { animation-delay: -2.4s; }
+
+.action-btn:hover .action-btn-icon,
+.launch-mode-switch:hover .launch-mode-icon {
+  animation-duration: 0.72s;
+}
+
+.launch-mode-switch {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  white-space: nowrap;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.96), rgba(255, 241, 168, 0.62));
+}
+
+.launch-mode-switch::before {
+  position: absolute;
+  inset: -35% auto -35% 0;
+  z-index: 1;
+  width: 38%;
+  content: '';
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.84), transparent);
+  animation: comic-control-glint 5s ease-in-out infinite -0.8s;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.launch-mode-switch > * {
+  position: relative;
+  z-index: 2;
+}
+
+.launch-mode-switch-busy {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.launch-mode-switch-busy .launch-mode-option {
+  cursor: wait;
+}
+
+.launch-mode-caption,
+.launch-mode-label {
+  letter-spacing: 0;
+}
+
+.launch-mode-option {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  min-width: 2rem;
+  height: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0 0.45rem;
+  overflow: hidden;
+  border-radius: 6px;
+  color: rgba(31, 37, 48, 0.52);
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.launch-mode-option:hover {
+  color: rgba(31, 37, 48, 0.88);
+}
+
+.launch-mode-option:focus-visible {
+  outline: 2px solid rgba(67, 97, 232, 0.55);
+  outline-offset: 1px;
+}
+
+.launch-mode-option-active {
+  color: #0a6b5b;
+}
+
+.launch-mode-active-plate {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border: 1px solid rgba(18, 174, 141, 0.28);
+  border-radius: 6px;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.96), rgba(105, 230, 199, 0.34));
+  box-shadow: 0 2px 8px rgba(12, 108, 91, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  pointer-events: none;
+}
+
+.launch-mode-label {
+  position: relative;
+  z-index: 2;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.launch-mode-option-active .launch-mode-icon {
+  color: #0b8f78;
+  filter: drop-shadow(0 0 5px rgba(18, 174, 141, 0.34));
+}
+
+.launch-burst {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.launch-burst-wave,
+.launch-burst-ring,
+.launch-burst-core {
+  position: absolute;
+  top: 5.2rem;
+  left: 50%;
+  pointer-events: none;
+}
+
+.launch-burst-wave {
+  width: min(54rem, 92vw);
+  height: 2px;
+  border-radius: 999px;
+  background: #69e6c7;
+  box-shadow: 0 0 9px rgba(105, 230, 199, 0.95), 0 0 20px rgba(91, 124, 250, 0.72);
+  transform: translateX(-50%);
+  transform-origin: center;
+}
+
+.launch-burst-ring {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: -2.25rem 0 0 -2.25rem;
+  border: 1px solid rgba(105, 230, 199, 0.9);
+  border-radius: 999px;
+  box-shadow: 0 0 12px rgba(91, 124, 250, 0.5);
+}
+
+.launch-burst-ring-late {
+  border-color: rgba(124, 156, 255, 0.85);
+}
+
+.launch-burst-core {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  margin: -1rem 0 0 -1rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 9px;
+  color: #151a23;
+  background: #ffd64d;
+  box-shadow: 0 0 15px rgba(255, 214, 77, 0.8);
+}
+
+.spirit-mark {
+  position: relative;
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: 0 0 3.5rem;
+  place-items: center;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.spirit-mark-compact {
+  width: 3.25rem;
+  height: 3.25rem;
+  flex-basis: 3.25rem;
+}
+
+.spirit-core {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  width: 2.65rem;
+  height: 2.65rem;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(217, 154, 0, 0.4);
+  border-radius: 11px;
+  color: #151a23;
+  background: #ffd64d;
+  box-shadow: 0 8px 20px rgba(217, 154, 0, 0.24);
+}
+
+.spirit-core::before {
+  position: absolute;
+  inset: 4px;
+  content: '';
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 8px;
+  opacity: 0.72;
+}
+
+.spirit-mark-engaged .spirit-core::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  content: '';
+  border: 1px solid rgba(124, 156, 255, 0.78);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  opacity: 0.55;
+}
+
+.spirit-mark-active .spirit-core::after {
+  animation: spirit-core-field 2.2s ease-in-out infinite;
+}
+
+.spirit-sun {
+  position: absolute;
+  width: 2.15rem;
+  height: 2.15rem;
+  opacity: 0.28;
+}
+
+.spirit-check {
+  position: relative;
+  z-index: 2;
+  width: 1.15rem;
+  height: 1.15rem;
+  stroke-width: 2.4;
+}
+
+.spirit-orbit {
+  position: absolute;
+  inset: 0.2rem;
+  z-index: 1;
+  border: 1px solid rgba(67, 97, 232, 0.38);
+  border-right-color: transparent;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.spirit-orbit-primary {
+  transform: rotate(18deg) scaleX(0.78);
+}
+
+.spirit-orbit-secondary {
+  inset: -0.05rem 0.42rem;
+  border-color: rgba(18, 174, 141, 0.38);
+  border-bottom-color: transparent;
+  transform: rotate(-54deg) scaleY(0.72);
+}
+
+.spirit-mark-active .spirit-orbit-primary {
+  animation: spirit-orbit-primary 5.8s linear infinite;
+  will-change: transform;
+}
+
+.spirit-mark-active .spirit-orbit-secondary {
+  animation: spirit-orbit-secondary 8.4s linear infinite;
+  will-change: transform;
+}
+
+.spirit-node {
+  position: absolute;
+  top: -0.2rem;
+  left: 50%;
+  display: block;
+  width: 0.35rem;
+  height: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  transform: translateX(-50%);
+}
+
+.spirit-node-primary {
+  background: #5b7cfa;
+  box-shadow: 0 0 9px rgba(91, 124, 250, 0.72);
+}
+
+.spirit-node-secondary {
+  background: #12ae8d;
+  box-shadow: 0 0 9px rgba(18, 174, 141, 0.65);
+}
+
+.spirit-spark {
+  position: absolute;
+  z-index: 4;
+  color: #4361e8;
+  pointer-events: none;
+}
+
+.spirit-spark-a {
+  top: -0.1rem;
+  right: -0.15rem;
+}
+
+.spirit-spark-b {
+  bottom: 0.05rem;
+  left: -0.08rem;
+  color: #12ae8d;
+  opacity: 0.4;
+}
+
+.hero-emblem {
+  --hero-primary: #4361e8;
+  --hero-secondary: #69e6c7;
+  --hero-surface: #edf0ff;
+  --hero-ink: #1f2530;
+  position: relative;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  isolation: isolate;
+  color: var(--hero-ink);
+  vertical-align: middle;
+}
+
+.hero-emblem-xs { width: 1.15rem; height: 1.15rem; }
+.hero-emblem-sm { width: 2.15rem; height: 2.15rem; }
+.hero-emblem-md { width: 2.75rem; height: 2.75rem; }
+.hero-emblem-lg { width: 3.25rem; height: 3.25rem; }
+
+.hero-emblem-core {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  width: 72%;
+  height: 72%;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--hero-primary) 46%, white);
+  border-radius: 28%;
+  background: var(--hero-surface);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--hero-primary) 24%, transparent);
+}
+
+.hero-emblem-icon {
+  width: 50%;
+  height: 50%;
+  stroke-width: 2.35;
+}
+
+.marvel-portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.1);
+  filter: saturate(1.08) contrast(1.04);
+  user-select: none;
+}
+
+.hero-emblem-active .marvel-portrait {
+  animation: hero-portrait-charge 1.9s ease-in-out infinite;
+  will-change: transform;
+}
+
+.site-card:hover .marvel-portrait,
+.account-row:hover .marvel-portrait,
+.marvel-featured-member:hover .marvel-portrait {
+  transform: scale(1.2);
+}
+
+.marvel-portrait-avengers {
+  object-position: 54% center;
+}
+
+.site-card-favicon {
+  filter: drop-shadow(0 2px 3px rgba(31, 37, 48, 0.18));
+}
+
+.hero-emblem-field,
+.hero-emblem-ring,
+.hero-emblem-impact,
+.hero-emblem-node {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.hero-emblem-field {
+  inset: 19%;
+  z-index: 1;
+  border: 1px solid color-mix(in srgb, var(--hero-secondary) 68%, transparent);
+  border-radius: 999px;
+  opacity: 0.28;
+}
+
+.hero-emblem-ring {
+  z-index: 2;
+  border: 1px solid color-mix(in srgb, var(--hero-primary) 58%, transparent);
+  border-radius: 999px;
+}
+
+.hero-emblem-ring-outer {
+  inset: 0;
+  border-right-color: transparent;
+  border-bottom-style: dashed;
+}
+
+.hero-emblem-ring-inner {
+  inset: 11%;
+  border-color: color-mix(in srgb, var(--hero-secondary) 58%, transparent);
+  border-top-color: transparent;
+}
+
+.hero-emblem-node {
+  top: -1px;
+  left: 50%;
+  z-index: 4;
+  width: 15%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  background: var(--hero-secondary);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--hero-secondary) 76%, transparent);
+  transform: translateX(-50%);
+}
+
+.hero-emblem-impact {
+  inset: 8%;
+  z-index: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--hero-secondary) 16%, transparent);
+  opacity: 0;
+}
+
+.hero-emblem-active .hero-emblem-ring-outer {
+  animation: hero-orbit-spin 4.8s linear infinite;
+  will-change: transform;
+}
+
+.hero-emblem-active .hero-emblem-ring-inner {
+  animation: hero-orbit-reverse 6.8s linear infinite;
+  will-change: transform;
+}
+
+.hero-emblem-active .hero-emblem-field {
+  animation: hero-reactor-pulse 1.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hero-emblem-armor {
+  --hero-primary: #e8453d;
+  --hero-secondary: #ffd64d;
+  --hero-surface: #fff4d9;
+  --hero-ink: #9d1c1c;
+}
+
+.hero-emblem-armor .hero-emblem-core {
+  clip-path: polygon(25% 6%, 75% 6%, 96% 28%, 96% 72%, 75% 94%, 25% 94%, 4% 72%, 4% 28%);
+}
+
+.hero-emblem-thunder {
+  --hero-primary: #d99a00;
+  --hero-secondary: #5b7cfa;
+  --hero-surface: #fff6ca;
+  --hero-ink: #6e4b00;
+}
+
+.hero-emblem-thunder .hero-emblem-impact {
+  inset: -8% 42%;
+  border-radius: 0;
+  background: #ffd64d;
+  opacity: 0.22;
+  transform: scaleY(0.58) skewX(-16deg);
+}
+
+.hero-emblem-thunder.hero-emblem-active .hero-emblem-impact {
+  animation: hero-thunder-charge 2.1s linear infinite;
+  will-change: transform, opacity;
+}
+
+.hero-emblem-web {
+  --hero-primary: #e8453d;
+  --hero-secondary: #4361e8;
+  --hero-surface: #eef1ff;
+  --hero-ink: #b4232d;
+}
+
+.hero-emblem-web .hero-emblem-field {
+  inset: 5%;
+  border: 0;
+  background-image:
+    repeating-conic-gradient(from 0deg, rgba(67, 97, 232, 0.34) 0 1deg, transparent 1deg 45deg),
+    repeating-radial-gradient(circle, transparent 0 20%, rgba(232, 69, 61, 0.22) 21% 23%, transparent 24% 38%);
+}
+
+.hero-emblem-mystic {
+  --hero-primary: #f97316;
+  --hero-secondary: #0891b2;
+  --hero-surface: #fff3e7;
+  --hero-ink: #b64708;
+}
+
+.hero-emblem-mystic .hero-emblem-ring-outer,
+.hero-emblem-mystic .hero-emblem-ring-inner {
+  border-style: dashed;
+}
+
+.hero-emblem-mystic.hero-emblem-active .hero-emblem-impact {
+  border: 1px solid rgba(249, 115, 22, 0.58);
+  opacity: 0.5;
+  animation: hero-portal-pulse 1.9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hero-emblem-shield {
+  --hero-primary: #4361e8;
+  --hero-secondary: #e8453d;
+  --hero-surface: #f5f7ff;
+  --hero-ink: #2643b4;
+}
+
+.hero-emblem-shield .hero-emblem-core {
+  border-radius: 999px;
+}
+
+.hero-emblem-shield .hero-emblem-impact {
+  inset: -15% 38%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  opacity: 0;
+  transform: translate3d(-180%, 0, 0) rotate(18deg);
+}
+
+.hero-emblem-shield.hero-emblem-active .hero-emblem-impact {
+  animation: hero-shield-glint 2.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hero-emblem-titan {
+  --hero-primary: #22a447;
+  --hero-secondary: #ffd64d;
+  --hero-surface: #eaffed;
+  --hero-ink: #116c2c;
+}
+
+.hero-emblem-titan .hero-emblem-core {
+  clip-path: polygon(12% 4%, 88% 4%, 96% 30%, 86% 96%, 18% 92%, 4% 62%);
+}
+
+.hero-emblem-titan .hero-emblem-impact {
+  inset: 13%;
+  border-radius: 0;
+  background:
+    linear-gradient(56deg, transparent 44%, rgba(17, 108, 44, 0.55) 45% 49%, transparent 50%),
+    linear-gradient(-42deg, transparent 50%, rgba(17, 108, 44, 0.48) 51% 54%, transparent 55%);
+  opacity: 0.55;
+}
+
+.hero-emblem-titan.hero-emblem-active {
+  animation: hero-titan-impact 2.3s linear infinite;
+  will-change: transform;
+}
+
+/* 角色能量层：只覆盖头像周边的空白区域，不能抢走角色和状态文字的对比度。 */
+.marvel-energy {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  flex: 0 0 auto;
+  color: #69e6c7;
+  pointer-events: none;
+}
+
+.marvel-energy > i {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.marvel-energy-field {
+  inset: 8%;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  opacity: 0.3;
+}
+
+.marvel-energy-rune {
+  inset: 24%;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  border-right-color: transparent;
+  opacity: 0.54;
+}
+
+.marvel-energy-spark {
+  width: 0.22rem;
+  height: 0.22rem;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 0.4rem currentColor;
+  opacity: 0.24;
+}
+
+.marvel-energy-spark-a { top: 7%; right: 8%; }
+.marvel-energy-spark-b { bottom: 8%; left: 8%; }
+
+.marvel-energy-active .marvel-energy-field,
+.marvel-energy-active .marvel-energy-rune,
+.marvel-energy-active .marvel-energy-spark {
+  will-change: transform, opacity;
+}
+
+.marvel-energy-active .marvel-energy-spark-a {
+  animation: marvel-energy-spark 1.45s ease-in-out infinite;
+}
+
+.marvel-energy-active .marvel-energy-spark-b {
+  animation: marvel-energy-spark 1.8s ease-in-out infinite -0.64s;
+}
+
+.marvel-energy-iron-man { color: #ff5f55; }
+.marvel-energy-iron-man .marvel-energy-field {
+  inset: 4%;
+  border-color: #ffd64d;
+  background: radial-gradient(circle, #fff 0 6%, #69e6c7 7% 18%, rgba(105, 230, 199, 0.58) 19% 27%, transparent 29% 100%);
+  box-shadow: 0 0 0.42rem rgba(105, 230, 199, 0.86), inset 0 0 0.35rem rgba(255, 214, 77, 0.64);
+}
+
+.marvel-energy-iron-man .marvel-energy-rune {
+  inset: 13%;
+  border-color: #ffd64d;
+  border-top-color: transparent;
+}
+
+.marvel-energy-active.marvel-energy-iron-man .marvel-energy-field {
+  animation: marvel-energy-reactor 1.8s ease-in-out infinite;
+}
+
+.marvel-energy-active.marvel-energy-iron-man .marvel-energy-rune {
+  animation: hero-orbit-spin 3.6s linear infinite;
+}
+
+.marvel-energy-spider-man { color: #4361e8; }
+.marvel-energy-spider-man .marvel-energy-field {
+  inset: 2%;
+  border: 0;
+  background:
+    repeating-conic-gradient(from 0deg, rgba(67, 97, 232, 0.72) 0 1deg, transparent 1deg 45deg),
+    repeating-radial-gradient(circle, transparent 0 22%, rgba(232, 69, 61, 0.62) 23% 25%, transparent 26% 43%);
+  opacity: 0.48;
+}
+
+.marvel-energy-spider-man .marvel-energy-rune {
+  inset: 22%;
+  border-color: #ff5f55;
+  border-right-color: transparent;
+  transform: rotate(45deg);
+}
+
+.marvel-energy-active.marvel-energy-spider-man .marvel-energy-field {
+  animation: marvel-energy-web 2.9s linear infinite;
+}
+
+.marvel-energy-active.marvel-energy-spider-man .marvel-energy-rune {
+  animation: hero-orbit-reverse 4.1s linear infinite;
+}
+
+.marvel-energy-thor { color: #5b7cfa; }
+.marvel-energy-thor .marvel-energy-field {
+  inset: 2% 36%;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 214, 77, 0.95), transparent);
+  clip-path: polygon(40% 0, 100% 0, 62% 42%, 88% 42%, 30% 100%, 45% 54%, 15% 54%);
+  opacity: 0.28;
+}
+
+.marvel-energy-thor .marvel-energy-rune {
+  inset: 11%;
+  border-color: #ffd64d;
+  border-top-color: transparent;
+  border-bottom-style: dashed;
+}
+
+.marvel-energy-active.marvel-energy-thor .marvel-energy-field {
+  animation: marvel-energy-bolt 2.2s linear infinite;
+}
+
+.marvel-energy-active.marvel-energy-thor .marvel-energy-rune {
+  animation: hero-orbit-spin 4.7s linear infinite;
+}
+
+.marvel-energy-avengers { color: #69e6c7; }
+.marvel-energy-avengers .marvel-energy-field {
+  inset: 5%;
+  border-color: #ffd64d;
+  background: repeating-conic-gradient(from 0deg, rgba(105, 230, 199, 0.24) 0 13deg, transparent 13deg 45deg);
+  box-shadow: 0 0 0.55rem rgba(105, 230, 199, 0.5);
+}
+
+.marvel-energy-avengers .marvel-energy-rune {
+  inset: 26%;
+  border: 0;
+  background: #ffd64d;
+  clip-path: polygon(50% 0, 61% 36%, 100% 50%, 61% 64%, 50% 100%, 39% 64%, 0 50%, 39% 36%);
+  opacity: 0.56;
+}
+
+.marvel-energy-active.marvel-energy-avengers .marvel-energy-field {
+  animation: hero-orbit-spin 5.4s linear infinite;
+}
+
+.marvel-energy-active.marvel-energy-avengers .marvel-energy-rune {
+  animation: marvel-energy-star 2.3s ease-in-out infinite;
+}
+
+/* 其他角色复用基础能量，但保持稳定的角色颜色，不让卡片出现空白装饰。 */
+.marvel-energy-captain-america { color: #4361e8; }
+.marvel-energy-hulk { color: #22a447; }
+.marvel-energy-doctor-strange,
+.marvel-energy-scarlet-witch { color: #f97316; }
+.marvel-energy-black-panther { color: #9aaeff; }
+.marvel-energy-black-widow,
+.marvel-energy-hawkeye { color: #ff8277; }
+.marvel-energy-captain-marvel { color: #ffd64d; }
+.marvel-energy-wolverine { color: #ffd64d; }
+
+.command-deck-member-energy {
+  position: absolute;
+  inset: -0.42rem;
+  z-index: 4;
+  opacity: 0.84;
+}
+
+.metric-character-energy {
+  position: absolute;
+  top: 50%;
+  right: 0.22rem;
+  z-index: 0;
+  width: 2.35rem;
+  height: 2.35rem;
+  opacity: 0.34;
+  transform: translateY(-50%);
+}
+
+.metric-tile > .hero-emblem,
+.metric-tile > .min-w-0 {
+  position: relative;
+  z-index: 2;
+}
+
+.site-card-character-energy {
+  position: absolute;
+  inset: -0.45rem;
+  z-index: 4;
+  opacity: 0.72;
+}
+
+.account-row-character-energy {
+  position: absolute;
+  inset: -0.4rem;
+  z-index: 4;
+  opacity: 0.68;
+}
+
+.live-task-beacon {
+  position: relative;
+}
+
+.live-task-beacon-energy {
+  position: absolute;
+  inset: -0.42rem;
+  z-index: 4;
+  opacity: 0.84;
+}
+
+.live-task-beacon-attention .marvel-energy {
+  filter: saturate(1.15);
+}
+
+.hero-emblem-xs .hero-emblem-node,
+.hero-emblem-xs .hero-emblem-ring-inner {
+  display: none;
+}
+
+.hero-emblem-xs .hero-emblem-core {
+  width: 88%;
+  height: 88%;
+  border-radius: 35%;
+  box-shadow: none;
+}
+
+.hero-emblem-xs .hero-emblem-ring-outer {
+  inset: -8%;
+}
+
+.metric-tile {
+  isolation: isolate;
+  min-height: 3.55rem;
+  border: 1px solid rgba(31, 37, 48, 0.065);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
+}
+
+.metric-tile::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: '';
+  background-image:
+    radial-gradient(circle, currentColor 0 0.7px, transparent 1px),
+    linear-gradient(125deg, transparent 0 68%, currentColor 68% 69%, transparent 69% 100%);
+  background-size: 10px 10px, 100% 100%;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.metric-tile-shield { color: #2643b4; background: linear-gradient(125deg, rgba(238, 241, 255, 0.94), rgba(255, 229, 226, 0.75)); }
+.metric-tile-thunder { color: #8a5c00; background: linear-gradient(125deg, rgba(255, 246, 202, 0.96), rgba(226, 232, 255, 0.76)); }
+.metric-tile-armor { color: #9d1c1c; background: linear-gradient(125deg, rgba(255, 235, 221, 0.96), rgba(255, 246, 202, 0.82)); }
+.metric-tile-mystic { color: #b64708; background: linear-gradient(125deg, rgba(255, 235, 218, 0.95), rgba(220, 249, 255, 0.82)); }
+.metric-tile-titan { color: #116c2c; background: linear-gradient(125deg, rgba(226, 255, 231, 0.95), rgba(255, 246, 202, 0.82)); }
+
+.metric-energy-swipe {
+  position: absolute;
+  inset: -30% auto -30% 0;
+  z-index: 0;
+  width: 28%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.88), transparent);
+  animation: metric-energy-pass 4.2s ease-in-out infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.metric-tile:nth-child(2) .metric-energy-swipe { animation-delay: -0.8s; }
+.metric-tile:nth-child(3) .metric-energy-swipe { animation-delay: -1.6s; }
+.metric-tile:nth-child(4) .metric-energy-swipe { animation-delay: -2.4s; }
+.metric-tile:nth-child(5) .metric-energy-swipe { animation-delay: -3.2s; }
+
+.metric-tile:hover .hero-emblem-ring-outer {
+  animation: hero-orbit-spin 1.4s linear infinite;
+}
+
+.metric-tile:hover .hero-emblem-ring-inner {
+  animation: hero-orbit-reverse 1.9s linear infinite;
+}
+
+.today-avengers-emblem {
+  filter: drop-shadow(0 5px 8px rgba(232, 69, 61, 0.24));
+}
+
+.marvel-featured-roster {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.marvel-featured-member {
+  position: relative;
+  display: inline-flex;
+  min-height: 2.45rem;
+  align-items: center;
+  gap: 0.3rem;
+  overflow: hidden;
+  padding: 0.12rem 0.45rem 0.12rem 0.12rem;
+  border: 1px solid rgba(31, 37, 48, 0.08);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 12px rgba(31, 37, 48, 0.07);
+  animation: comic-stat-pulse 3.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.marvel-featured-member:nth-child(2) { animation-delay: -0.85s; }
+.marvel-featured-member:nth-child(3) { animation-delay: -1.7s; }
+.marvel-featured-member:nth-child(4) { animation-delay: -2.55s; }
+
+.marvel-featured-member::after {
+  position: absolute;
+  inset: -30% auto -30% 0;
+  width: 28%;
+  content: '';
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.86), transparent);
+  animation: comic-control-glint 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.marvel-featured-member:nth-child(2)::after { animation-delay: -1s; }
+.marvel-featured-member:nth-child(3)::after { animation-delay: -2s; }
+.marvel-featured-member:nth-child(4)::after { animation-delay: -3s; }
+
+.marvel-featured-name {
+  position: relative;
+  z-index: 2;
+  max-width: 4.5rem;
+  overflow: hidden;
+  color: #1f2530;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.marvel-featured-member[data-marvel-character='iron-man'] { background: linear-gradient(120deg, rgba(255, 226, 222, 0.94), rgba(255, 246, 202, 0.9)); }
+.marvel-featured-member[data-marvel-character='spider-man'] { background: linear-gradient(120deg, rgba(255, 229, 232, 0.94), rgba(226, 232, 255, 0.9)); }
+.marvel-featured-member[data-marvel-character='thor'] { background: linear-gradient(120deg, rgba(226, 232, 255, 0.94), rgba(220, 249, 255, 0.9)); }
+.marvel-featured-member[data-marvel-character='avengers'] { background: linear-gradient(120deg, rgba(238, 241, 255, 0.94), rgba(255, 226, 222, 0.9)); }
+
+.site-card {
+  isolation: isolate;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 30px rgba(31, 37, 48, 0.075), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.site-card::before,
+.site-card::after {
+  position: absolute;
+  content: '';
+  pointer-events: none;
+}
+
+.site-card::before {
+  inset: 0;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle, rgba(31, 37, 48, 0.16) 0 0.7px, transparent 1px),
+    repeating-linear-gradient(154deg, transparent 0 22px, rgba(31, 37, 48, 0.04) 22px 23px, transparent 23px 38px);
+  background-size: 11px 11px, auto;
+  opacity: 0.22;
+}
+
+.site-card::after {
+  inset: 0 auto 0 0;
+  z-index: 0;
+  width: 24%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.78), transparent);
+  animation: site-card-sweep 6.4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.site-card:nth-child(2n)::after { animation-delay: -2.1s; }
+.site-card:nth-child(3n)::after { animation-delay: -4.2s; }
+
+.site-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.site-card-hero-armor { background: linear-gradient(128deg, rgba(255, 246, 235, 0.96), rgba(255, 233, 218, 0.92)); }
+.site-card-hero-thunder { background: linear-gradient(128deg, rgba(255, 250, 218, 0.96), rgba(232, 238, 255, 0.9)); }
+.site-card-hero-web { background: linear-gradient(128deg, rgba(255, 235, 237, 0.96), rgba(232, 238, 255, 0.9)); }
+.site-card-hero-mystic { background: linear-gradient(128deg, rgba(255, 239, 224, 0.96), rgba(222, 250, 255, 0.9)); }
+.site-card-hero-shield { background: linear-gradient(128deg, rgba(238, 241, 255, 0.96), rgba(255, 235, 232, 0.9)); }
+.site-card-hero-titan { background: linear-gradient(128deg, rgba(230, 255, 234, 0.96), rgba(255, 248, 212, 0.9)); }
+
+.site-card-header {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(3px);
+}
+
+.site-card-status-rail {
+  overflow: hidden;
+}
+
+.site-card-status-rail::after {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 24%;
+  content: '';
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.78);
+  animation: site-rail-charge 2.8s linear infinite;
+  will-change: transform;
+}
+
+.site-card:hover .site-card-hero-emblem .hero-emblem-ring-outer {
+  animation: hero-orbit-spin 1.6s linear infinite;
+}
+
+.site-card:hover .site-card-hero-emblem .hero-emblem-ring-inner {
+  animation: hero-orbit-reverse 2.1s linear infinite;
+}
+
+.site-card-actions button,
+.account-row-actions button {
+  position: relative;
+  overflow: hidden;
+}
+
+.site-card-actions button::after,
+.account-row-actions button::after {
+  position: absolute;
+  inset: 50%;
+  content: '';
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2);
+  transition: transform 220ms ease, opacity 220ms ease;
+  pointer-events: none;
+}
+
+.site-card-actions button:hover::after,
+.account-row-actions button:hover::after {
+  opacity: 0.35;
+  transform: translate(-50%, -50%) scale(2.4);
+}
+
+.site-card-stat {
+  animation: comic-stat-pulse 3s ease-in-out infinite;
+  will-change: transform;
+}
+
+.site-card-stat:nth-child(2n) { animation-delay: -1.5s; }
+
+.account-row {
+  position: relative;
+  isolation: isolate;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.account-row::before,
+.account-row::after {
+  position: absolute;
+  content: '';
+  pointer-events: none;
+}
+
+.account-row::before {
+  inset: 0;
+  z-index: 0;
+  background-image: radial-gradient(circle, currentColor 0 0.65px, transparent 0.95px);
+  background-size: 10px 10px;
+  opacity: 0.045;
+}
+
+.account-row::after {
+  inset: 0 auto 0 0;
+  z-index: 0;
+  width: 20%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.72), transparent);
+  opacity: 0;
+}
+
+.account-row > * {
+  position: relative;
+  z-index: 1;
+}
+
+.account-row-pending { color: #8a5c00; background: linear-gradient(100deg, rgba(255, 246, 202, 0.58), rgba(255, 255, 255, 0.54)); }
+.account-row-running { color: #9d1c1c; background: linear-gradient(100deg, rgba(255, 232, 218, 0.7), rgba(255, 248, 210, 0.58)); }
+.account-row-attention { color: #b64708; background: linear-gradient(100deg, rgba(255, 236, 218, 0.68), rgba(220, 249, 255, 0.62)); }
+.account-row-done { color: #076654; background: linear-gradient(100deg, rgba(222, 255, 246, 0.64), rgba(255, 255, 255, 0.54)); }
+.account-row-failed { color: #9d1c1c; background: linear-gradient(100deg, rgba(255, 226, 222, 0.72), rgba(232, 255, 236, 0.55)); }
+
+.account-row-running::after,
+.account-row-attention::after {
+  opacity: 1;
+  animation: account-row-scan 3.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.account-row:hover .account-row-hero-emblem .hero-emblem-ring-outer {
+  animation: hero-orbit-spin 1.5s linear infinite;
+}
+
+.account-row-timeline {
+  border: 1px solid rgba(31, 37, 48, 0.07);
+  background:
+    radial-gradient(circle, rgba(31, 37, 48, 0.13) 0 0.65px, transparent 0.95px) 0 0 / 10px 10px,
+    rgba(255, 255, 255, 0.62);
+  box-shadow: inset 3px 0 0 rgba(255, 214, 77, 0.62);
+}
+
+.account-detail-step {
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%);
+}
+
+.account-detail-step-complete {
+  color: #076654;
+  background: linear-gradient(102deg, rgba(220, 255, 245, 0.94), rgba(255, 255, 255, 0.78) 72%, rgba(238, 241, 255, 0.7));
+  box-shadow: inset 3px 0 0 rgba(18, 174, 141, 0.52);
+  --tw-ring-color: rgba(18, 174, 141, 0.13);
+}
+
+.account-detail-step-current {
+  color: #9d1c1c;
+  background: linear-gradient(102deg, rgba(255, 226, 222, 0.98), rgba(255, 246, 202, 0.94) 62%, rgba(238, 241, 255, 0.76));
+  box-shadow: inset 3px 0 0 #ff5f55, 0 5px 14px rgba(255, 95, 85, 0.12);
+  --tw-ring-color: rgba(255, 95, 85, 0.22);
+}
+
+.account-detail-step-failed {
+  color: #9d1c1c;
+  background: linear-gradient(102deg, rgba(255, 223, 219, 0.98), rgba(230, 255, 234, 0.82));
+  box-shadow: inset 3px 0 0 #e8453d, 0 5px 14px rgba(232, 69, 61, 0.13);
+  --tw-ring-color: rgba(232, 69, 61, 0.24);
+}
+
+.account-detail-connector {
+  z-index: 0;
+  background: repeating-linear-gradient(to bottom, #12ae8d 0 5px, rgba(105, 230, 199, 0.18) 5px 9px);
+  background-size: 100% 18px;
+  animation: live-connector-flow 0.8s linear infinite;
+  box-shadow: 0 0 5px rgba(18, 174, 141, 0.38);
+}
+
+.account-detail-node {
+  color: #fff;
+}
+
+.account-detail-node-complete {
+  background: #12ae8d;
+  box-shadow: 0 0 0 2px rgba(105, 230, 199, 0.24), 0 0 9px rgba(18, 174, 141, 0.34);
+}
+
+.account-detail-node-current {
+  background: #ff5f55;
+  box-shadow: 0 0 0 2px rgba(255, 214, 77, 0.48), 0 0 12px rgba(255, 95, 85, 0.46);
+}
+
+.account-detail-node-failed {
+  background: #e8453d;
+  box-shadow: 0 0 0 2px rgba(34, 164, 71, 0.32), 0 0 12px rgba(232, 69, 61, 0.42);
+}
+
+.account-detail-node-orbit {
+  border-color: rgba(217, 154, 0, 0.72);
+  animation: hero-orbit-spin 2.2s linear infinite;
+  will-change: transform;
+}
+
+.account-detail-complete-burst {
+  border-color: rgba(18, 174, 141, 0.72);
+  background: rgba(105, 230, 199, 0.18);
+  animation: detail-complete-burst 0.68s ease-out 1;
+  pointer-events: none;
+}
+
+.account-detail-copy::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: repeating-linear-gradient(165deg, transparent 0 12px, currentColor 12px 13px, transparent 13px 19px);
+  opacity: 0.035;
+  pointer-events: none;
+}
+
+.account-detail-scan {
+  z-index: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.94), transparent);
+  box-shadow: 0 0 10px rgba(255, 214, 77, 0.42);
+  animation: live-step-scan 2.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.status-badge {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  font-weight: 700;
+}
+
+.status-badge::before,
+.status-badge::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  pointer-events: none;
+}
+
+.status-badge::before {
+  inset: 0;
+  background-image: radial-gradient(circle, currentColor 0 0.65px, transparent 0.9px);
+  background-size: 8px 8px;
+  opacity: 0.12;
+}
+
+.status-badge-thunder-flicker::after {
+  inset: -24% 43%;
+  background: currentColor;
+  opacity: 0.18;
+  transform: scaleY(0.58) skewX(-16deg);
+  animation: hero-thunder-charge 2.6s linear infinite;
+  will-change: transform, opacity;
+}
+
+.status-badge-armor-reactor::after {
+  inset: -35% auto -35% 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+  animation: comic-control-glint 1.65s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.status-badge-mystic-portal::after {
+  inset: 2px;
+  border: 1px dashed currentColor;
+  border-radius: inherit;
+  opacity: 0.42;
+  animation: status-mystic-turn 4.2s linear infinite;
+  will-change: transform;
+}
+
+.status-badge-shield-glint::after {
+  inset: -30% auto -30% 0;
+  width: 32%;
+  background: rgba(255, 255, 255, 0.82);
+  animation: hero-shield-glint 0.95s ease-out 1;
+  will-change: transform, opacity;
+}
+
+.status-badge-titan-impact {
+  animation: status-titan-entry 0.54s ease-out 1;
+}
+
+.status-badge-indicator {
+  position: relative;
+  z-index: 2;
+}
+
+.status-badge-indicator-thunder-flicker {
+  filter: drop-shadow(0 0 3px currentColor);
+}
+
+.status-badge-indicator-armor-reactor {
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+.today-route-track {
+  isolation: isolate;
+}
+
+.today-route-energy {
+  position: absolute;
+  top: -2px;
+  z-index: 3;
+  width: 18%;
+  height: calc(100% + 4px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  background: rgba(105, 230, 199, 0.88);
+  box-shadow: 0 0 7px rgba(105, 230, 199, 0.9), 0 0 15px rgba(67, 97, 232, 0.52);
+  opacity: 0.86;
+  will-change: left;
+  pointer-events: none;
+}
+
+.today-route-halo,
+.today-route-orbit {
+  position: absolute;
+  top: 50%;
+  z-index: 4;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.today-route-halo {
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid rgba(105, 230, 199, 0.7);
+  background: rgba(67, 97, 232, 0.08);
+  animation: route-halo-pulse 1.65s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.today-route-orbit {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 1px dashed rgba(255, 255, 255, 0.9);
+  border-right-color: rgba(91, 124, 250, 0.16);
+  box-shadow: 0 0 8px rgba(91, 124, 250, 0.48);
+  will-change: transform;
+}
+
+.today-route-marker {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: #4361e8;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 3px rgba(67, 97, 232, 0.14), 0 3px 9px rgba(67, 97, 232, 0.28);
+  pointer-events: none;
+}
+
+.completion-ripple {
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  z-index: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1px solid rgba(18, 174, 141, 0.62);
+  border-radius: 999px;
+  background: rgba(105, 230, 199, 0.14);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.today-overview-head {
+  min-height: 92px;
+}
+
+/* Marvel command deck: a high-contrast first-viewport signal, not another pastel card. */
+.command-deck {
+  position: relative;
+  min-height: 190px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(120, 235, 255, 0.28);
+  border-radius: 8px;
+  color: #f7fbff;
+  background:
+    linear-gradient(112deg, rgba(13, 20, 38, 0.98) 0 34%, rgba(55, 25, 33, 0.96) 58%, rgba(8, 53, 61, 0.98) 100%),
+    #101625;
+  box-shadow:
+    0 18px 48px rgba(17, 31, 58, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -2px 0 rgba(255, 75, 70, 0.3);
+}
+
+.command-deck::before,
+.command-deck::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: '';
+  pointer-events: none;
+}
+
+.command-deck::before {
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.2) 0 0.7px, transparent 1px) 0 0 / 10px 10px,
+    repeating-linear-gradient(158deg, transparent 0 28px, rgba(255, 214, 77, 0.07) 28px 30px, transparent 30px 49px);
+  opacity: 0.42;
+}
+
+.command-deck::after {
+  left: auto;
+  width: 57%;
+  clip-path: polygon(24% 0, 100% 0, 100% 100%, 0 100%, 18% 52%);
+  background:
+    linear-gradient(126deg, rgba(255, 65, 59, 0.14), rgba(255, 214, 77, 0.08) 45%, rgba(71, 229, 222, 0.15));
+}
+
+.command-deck[data-phase='running'] {
+  border-color: rgba(105, 230, 199, 0.62);
+  box-shadow:
+    0 18px 52px rgba(7, 132, 109, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -2px 0 rgba(105, 230, 199, 0.6);
+}
+
+.command-deck[data-phase='attention'] {
+  border-color: rgba(88, 220, 255, 0.55);
+  box-shadow: 0 18px 52px rgba(0, 163, 196, 0.2), inset 0 -2px 0 rgba(88, 220, 255, 0.55);
+}
+
+.command-deck[data-phase='failed'] {
+  border-color: rgba(255, 105, 96, 0.56);
+  box-shadow: 0 18px 52px rgba(180, 33, 39, 0.24), inset 0 -2px 0 rgba(255, 95, 85, 0.62);
+}
+
+.command-deck-scanline {
+  position: absolute;
+  inset: 0 auto 0 -18%;
+  z-index: 0;
+  width: 14%;
+  transform: skewX(-17deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), rgba(105, 230, 199, 0.12), transparent);
+  animation: comic-control-glint 5.8s ease-in-out infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.command-deck-header,
+.command-deck-roster,
+.command-deck-progress {
+  position: relative;
+  z-index: 1;
+}
+
+.command-deck-header {
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1rem 0.7rem;
+}
+
+.command-deck-heading {
+  min-width: 0;
+}
+
+.command-deck-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #69e6c7;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.command-deck-heading h2 {
+  margin-top: 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.command-deck-heading p {
+  margin-top: 0.2rem;
+  color: rgba(236, 246, 255, 0.62);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.command-deck-readout {
+  position: relative;
+  display: grid;
+  min-width: 108px;
+  min-height: 58px;
+  flex: 0 0 auto;
+  align-content: center;
+  justify-items: end;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 7px;
+  background: rgba(5, 12, 24, 0.44);
+  box-shadow: inset 3px 0 0 rgba(255, 214, 77, 0.72);
+}
+
+.command-deck-readout-label,
+.command-deck-readout-meta {
+  color: rgba(236, 246, 255, 0.52);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.command-deck-readout strong {
+  color: #ffd64d;
+  font-size: 1.3rem;
+  line-height: 1.05;
+  text-shadow: 0 0 12px rgba(255, 214, 77, 0.34);
+}
+
+.command-deck-roster {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0 1rem 0.75rem;
+}
+
+.command-deck-member {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 58px;
+  grid-template-columns: 46px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 0.45rem;
+  overflow: hidden;
+  padding: 0.38rem 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.command-deck-member:hover {
+  border-color: rgba(255, 214, 77, 0.48);
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 9px 22px rgba(1, 7, 19, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+
+.command-deck-member[data-marvel-character='iron-man'] { box-shadow: inset 3px 0 0 #ff5f55; }
+.command-deck-member[data-marvel-character='spider-man'] { box-shadow: inset 3px 0 0 #5b7cfa; }
+.command-deck-member[data-marvel-character='thor'] { box-shadow: inset 3px 0 0 #ffd64d; }
+.command-deck-member[data-marvel-character='avengers'] { box-shadow: inset 3px 0 0 #69e6c7; }
+
+.command-deck-member-art {
+  position: relative;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 7px;
+  background: rgba(4, 10, 22, 0.66);
+}
+
+.command-deck-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transform: scale(1.16);
+  filter: saturate(1.1) contrast(1.05);
+}
+
+.command-deck-member-ring {
+  position: absolute;
+  inset: 3px;
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+  border-right-color: transparent;
+  border-radius: 6px;
+  animation: hero-orbit-spin 7s linear infinite;
+  pointer-events: none;
+}
+
+.command-deck-member-glint {
+  position: absolute;
+  inset: -25% auto -25% -55%;
+  width: 38%;
+  transform: skewX(-16deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  animation: comic-control-glint 4.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.command-deck-member-copy {
+  display: grid;
+  min-width: 0;
+  gap: 0.1rem;
+}
+
+.command-deck-member-copy strong,
+.command-deck-member-copy small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.command-deck-member-copy strong {
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.command-deck-member-copy small {
+  color: rgba(236, 246, 255, 0.48);
+  font-size: 8px;
+  line-height: 1.2;
+}
+
+.command-deck-member-signal {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border: 1px solid rgba(105, 230, 199, 0.28);
+  border-radius: 50%;
+  color: #69e6c7;
+  background: rgba(105, 230, 199, 0.08);
+}
+
+.command-deck-progress {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 28px;
+  padding: 0.4rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(1, 7, 18, 0.32);
+}
+
+.command-deck-progress-track {
+  position: relative;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.command-deck-progress-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-origin: left center;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ff5f55 0 28%, #ffd64d 28% 56%, #69e6c7 56% 78%, #5b7cfa 78%);
+  box-shadow: 0 0 10px rgba(105, 230, 199, 0.48);
+}
+
+.command-deck-progress-pulse {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: -15%;
+  width: 16%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.72);
+  animation: comic-control-glint 3.2s ease-in-out infinite;
+}
+
+.command-deck-progress-label,
+.command-deck-progress-value {
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.command-deck-progress-label { color: rgba(236, 246, 255, 0.48); }
+.command-deck-progress-value { color: #69e6c7; }
+
+.command-deck[data-phase='running'] .command-deck-member-signal {
+  animation: route-halo-pulse 1.45s ease-in-out infinite;
+}
+
+.command-deck[data-phase='attention'] .command-deck-progress-value { color: #58dcff; }
+.command-deck[data-phase='failed'] .command-deck-progress-value { color: #ff8a82; }
+
+.command-deck-compact .command-deck-header {
+  align-items: flex-start;
+  padding-inline: 0.8rem;
+}
+
+.command-deck-compact .command-deck-roster {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding-inline: 0.8rem;
+}
+
+.command-deck-compact .command-deck-member {
+  grid-template-columns: 40px minmax(0, 1fr) 16px;
+}
+
+.command-deck-compact .command-deck-member-art {
+  width: 36px;
+  height: 36px;
+}
+
+.command-deck-compact .command-deck-progress {
+  padding-inline: 0.8rem;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #4361e8;
+  outline-offset: 2px;
+}
+
+/*
+ * 实时执行台的外壳。
+ *
+ * 原来这里有个 ::after 扫光条（34% 宽、coral 色、live-scan 2.8s 无限循环）。
+ * 已移除：它不对应任何任务或步骤，纯粹是「科技感」装饰，而实时台本身已经有
+ * LIVE 呼吸点、spinner 和逐条追加的步骤日志三个真实的进行中信号。
+ * 另外它用的 coral 与失败态同色，在一个正常运行的面板上持续扫红光容易误读。
+ */
+.live-console {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle, rgba(31, 37, 48, 0.14) 0 0.7px, transparent 1px) 0 0 / 11px 11px,
+    linear-gradient(125deg, rgba(236, 255, 249, 0.97), rgba(255, 246, 218, 0.94) 48%, rgba(238, 241, 255, 0.94));
+  box-shadow: 0 18px 50px rgba(15, 118, 110, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.live-console::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: 36%;
+  height: 100%;
+  content: '';
+  clip-path: polygon(38% 0, 100% 0, 100% 100%, 0 72%);
+  background: repeating-linear-gradient(162deg, transparent 0 14px, rgba(67, 97, 232, 0.08) 14px 16px, transparent 16px 24px);
+  pointer-events: none;
+}
+
+.live-console > * {
+  position: relative;
+  z-index: 1;
+}
+
+.live-energy-rail {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 8;
+  height: 2px;
+  overflow: hidden;
+  background: rgba(67, 97, 232, 0.14);
+  pointer-events: none;
+}
+
+.live-energy-runner {
+  position: absolute;
+  top: 0;
+  width: 18%;
+  height: 100%;
+  border-radius: 999px;
+  background: #69e6c7;
+  box-shadow: 0 0 8px rgba(105, 230, 199, 0.9), 0 0 15px rgba(91, 124, 250, 0.66);
+  will-change: left;
+}
+
+.live-console-head {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(100deg, rgba(220, 255, 245, 0.94), rgba(255, 247, 205, 0.9) 56%, rgba(255, 226, 222, 0.82));
+}
+
+.live-sigil {
+  position: relative;
+  display: grid;
+  width: 2.6rem;
+  height: 2.6rem;
+  flex: 0 0 2.6rem;
+  place-items: center;
+}
+
+.live-sigil-ring {
+  position: absolute;
+  border: 1px solid rgba(18, 174, 141, 0.44);
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.live-sigil-ring-a {
+  inset: 0;
+  border-top-color: rgba(255, 255, 255, 0.94);
+  border-right-color: rgba(91, 124, 250, 0.3);
+}
+
+.live-sigil-ring-b {
+  inset: 0.23rem;
+  border-color: rgba(91, 124, 250, 0.4);
+  border-bottom-color: transparent;
+  border-left-style: dashed;
+}
+
+.live-sigil-active .live-sigil-ring {
+  will-change: transform;
+}
+
+.live-sigil-core {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 9px;
+  color: #fff;
+  background: #07846d;
+  box-shadow: 0 6px 15px rgba(7, 132, 109, 0.28);
+}
+
+.live-step-flash {
+  position: absolute;
+  inset: -0.2rem;
+  z-index: 0;
+  border: 1px solid rgba(255, 130, 119, 0.82);
+  border-radius: 999px;
+  background: rgba(255, 95, 85, 0.18);
+  pointer-events: none;
+}
+
+.live-step-region {
+  isolation: isolate;
+  border: 1px solid rgba(31, 37, 48, 0.065);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle, rgba(31, 37, 48, 0.13) 0 0.65px, transparent 0.95px) 0 0 / 10px 10px,
+    rgba(255, 255, 255, 0.52);
+  box-shadow: inset 3px 0 0 rgba(255, 95, 85, 0.54);
+}
+
+.live-step-timeline {
+  padding: 0.4rem;
+}
+
+.live-step-item {
+  min-height: 2.35rem;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.live-step-item:hover {
+  transform: translate3d(2px, 0, 0);
+}
+
+.live-step-complete {
+  background:
+    linear-gradient(102deg, rgba(220, 255, 245, 0.94), rgba(255, 255, 255, 0.78) 72%, rgba(238, 241, 255, 0.72));
+  box-shadow: inset 3px 0 0 rgba(18, 174, 141, 0.5);
+}
+
+.live-step-current {
+  background:
+    linear-gradient(102deg, rgba(255, 226, 222, 0.98), rgba(255, 246, 202, 0.95) 62%, rgba(238, 241, 255, 0.78));
+  box-shadow: inset 3px 0 0 #ff5f55, 0 5px 16px rgba(255, 95, 85, 0.13);
+}
+
+.live-step-connector {
+  width: 2px;
+  background: repeating-linear-gradient(to bottom, #12ae8d 0 5px, rgba(105, 230, 199, 0.22) 5px 9px);
+  background-size: 100% 18px;
+  animation: live-connector-flow 0.8s linear infinite;
+  box-shadow: 0 0 5px rgba(18, 174, 141, 0.42);
+}
+
+.live-step-node-current {
+  box-shadow: 0 0 0 2px rgba(255, 214, 77, 0.48), 0 0 12px rgba(255, 95, 85, 0.46);
+}
+
+.live-step-node-complete {
+  box-shadow: 0 0 0 2px rgba(105, 230, 199, 0.24), 0 0 9px rgba(18, 174, 141, 0.32);
+}
+
+.live-step-copy::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: repeating-linear-gradient(165deg, transparent 0 12px, currentColor 12px 13px, transparent 13px 19px);
+  opacity: 0.035;
+  pointer-events: none;
+}
+
+.live-step-current-scan {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.92), transparent);
+  box-shadow: 0 0 10px rgba(255, 214, 77, 0.42);
+}
+
+.live-step-check {
+  box-shadow: 0 2px 6px rgba(7, 102, 84, 0.24);
+}
+
+.sunny-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(7, 132, 109, 0.25) transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  html, body { background: #101516; }
+  .sunny-shell {
+    background-color: transparent;
+    background-image:
+      linear-gradient(rgba(105, 230, 199, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(105, 230, 199, 0.035) 1px, transparent 1px);
+  }
+  .comic-backdrop {
+    background:
+      linear-gradient(135deg, rgba(255, 95, 85, 0.12) 0 16%, transparent 16% 100%),
+      linear-gradient(318deg, rgba(18, 174, 141, 0.1) 0 24%, transparent 24% 100%),
+      #101516;
+  }
+  .comic-backdrop-panel-armor { opacity: 0.62; }
+  .comic-backdrop-panel-thunder { opacity: 0.58; }
+  .comic-backdrop-panel-mystic { opacity: 0.54; }
+  .comic-backdrop-marvel {
+    background: linear-gradient(90deg, rgba(16, 21, 22, 0.96), rgba(16, 21, 22, 0.18) 42%, rgba(16, 21, 22, 0.5));
+    opacity: 0.36;
+  }
+  .comic-backdrop-halftone {
+    opacity: 0.2;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0 1px, transparent 1.35px);
+  }
+  .comic-backdrop-speed-lines {
+    background: repeating-linear-gradient(164deg, transparent 0 15px, rgba(255, 255, 255, 0.09) 15px 17px, transparent 17px 27px);
+  }
+  .sunny-header {
+    background: linear-gradient(105deg, rgba(24, 29, 31, 0.93), rgba(55, 37, 25, 0.86) 38%, rgba(19, 54, 48, 0.84) 72%, rgba(26, 32, 55, 0.9));
+  }
+  .comic-surface::before {
+    background-image:
+      radial-gradient(circle, rgba(255, 255, 255, 0.2) 0 0.8px, transparent 1px),
+      repeating-linear-gradient(112deg, transparent 0 24px, rgba(255, 214, 77, 0.055) 24px 25px, transparent 25px 46px);
+    opacity: 0.22;
+  }
+  .comic-control-dock {
+    background: linear-gradient(90deg, rgba(255, 214, 77, 0.1), rgba(255, 255, 255, 0.035) 26%, rgba(105, 230, 199, 0.08) 72%, rgba(91, 124, 250, 0.1));
+  }
+  .comic-control-dock::before {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.28) 0 0.75px, transparent 1px);
+  }
+  .launch-mode-switch {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), rgba(255, 214, 77, 0.12));
+  }
+  .launch-mode-option { color: rgba(246, 247, 249, 0.48); }
+  .launch-mode-option:hover { color: rgba(246, 247, 249, 0.92); }
+  .launch-mode-option-active { color: #9ff8e4; }
+  .launch-mode-active-plate {
+    border-color: rgba(105, 230, 199, 0.34);
+    background: linear-gradient(125deg, rgba(18, 174, 141, 0.22), rgba(67, 97, 232, 0.2));
+    box-shadow: 0 2px 10px rgba(18, 174, 141, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .metric-tile {
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+  .metric-tile-shield { background: linear-gradient(125deg, rgba(38, 67, 180, 0.22), rgba(157, 28, 28, 0.16)); }
+  .metric-tile-thunder { background: linear-gradient(125deg, rgba(138, 92, 0, 0.23), rgba(67, 97, 232, 0.16)); }
+  .metric-tile-armor { background: linear-gradient(125deg, rgba(157, 28, 28, 0.24), rgba(138, 92, 0, 0.18)); }
+  .metric-tile-mystic { background: linear-gradient(125deg, rgba(182, 71, 8, 0.24), rgba(8, 145, 178, 0.17)); }
+  .metric-tile-titan { background: linear-gradient(125deg, rgba(17, 108, 44, 0.23), rgba(138, 92, 0, 0.17)); }
+  .marvel-featured-member {
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  }
+  .marvel-featured-name { color: #f6f7f9; }
+  .marvel-featured-member[data-marvel-character='iron-man'] { background: linear-gradient(120deg, rgba(82, 31, 27, 0.92), rgba(73, 60, 20, 0.84)); }
+  .marvel-featured-member[data-marvel-character='spider-man'] { background: linear-gradient(120deg, rgba(80, 27, 34, 0.92), rgba(24, 31, 58, 0.86)); }
+  .marvel-featured-member[data-marvel-character='thor'] { background: linear-gradient(120deg, rgba(24, 31, 58, 0.92), rgba(12, 58, 67, 0.84)); }
+  .marvel-featured-member[data-marvel-character='avengers'] { background: linear-gradient(120deg, rgba(24, 31, 58, 0.92), rgba(83, 28, 29, 0.84)); }
+  .site-card {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .site-card-hero-armor { background: linear-gradient(128deg, rgba(62, 29, 24, 0.96), rgba(45, 33, 21, 0.95)); }
+  .site-card-hero-thunder { background: linear-gradient(128deg, rgba(51, 42, 19, 0.96), rgba(24, 31, 58, 0.95)); }
+  .site-card-hero-web { background: linear-gradient(128deg, rgba(57, 25, 31, 0.96), rgba(24, 31, 58, 0.95)); }
+  .site-card-hero-mystic { background: linear-gradient(128deg, rgba(58, 33, 20, 0.96), rgba(18, 48, 54, 0.95)); }
+  .site-card-hero-shield { background: linear-gradient(128deg, rgba(24, 31, 58, 0.96), rgba(56, 27, 29, 0.95)); }
+  .site-card-hero-titan { background: linear-gradient(128deg, rgba(20, 52, 29, 0.96), rgba(51, 43, 19, 0.95)); }
+  .site-card::before {
+    background-image:
+      radial-gradient(circle, rgba(255, 255, 255, 0.24) 0 0.7px, transparent 1px),
+      repeating-linear-gradient(154deg, transparent 0 22px, rgba(255, 255, 255, 0.04) 22px 23px, transparent 23px 38px);
+    opacity: 0.17;
+  }
+  .site-card-header { background: rgba(14, 18, 24, 0.26); }
+  .account-row-pending { background: linear-gradient(100deg, rgba(91, 67, 20, 0.32), rgba(14, 18, 24, 0.42)); }
+  .account-row-running { background: linear-gradient(100deg, rgba(82, 31, 27, 0.36), rgba(73, 60, 20, 0.3)); }
+  .account-row-attention { background: linear-gradient(100deg, rgba(82, 42, 20, 0.34), rgba(12, 58, 67, 0.3)); }
+  .account-row-done { background: linear-gradient(100deg, rgba(12, 64, 53, 0.34), rgba(14, 18, 24, 0.42)); }
+  .account-row-failed { background: linear-gradient(100deg, rgba(83, 28, 29, 0.4), rgba(20, 61, 31, 0.24)); }
+  .account-row-timeline,
+  .live-step-region {
+    border-color: rgba(255, 255, 255, 0.08);
+    background:
+      radial-gradient(circle, rgba(255, 255, 255, 0.18) 0 0.65px, transparent 0.95px) 0 0 / 10px 10px,
+      rgba(255, 255, 255, 0.035);
+  }
+  .account-detail-step-complete {
+    color: #69e6c7;
+    background: linear-gradient(102deg, rgba(12, 64, 53, 0.82), rgba(22, 30, 32, 0.72) 72%, rgba(24, 31, 58, 0.62));
+  }
+  .account-detail-step-current {
+    color: #fff1a8;
+    background: linear-gradient(102deg, rgba(82, 31, 27, 0.92), rgba(73, 60, 20, 0.86) 62%, rgba(24, 31, 58, 0.66));
+  }
+  .account-detail-step-failed {
+    color: #ffb3ad;
+    background: linear-gradient(102deg, rgba(83, 28, 29, 0.92), rgba(20, 61, 31, 0.52));
+  }
+  .live-console {
+    background:
+      radial-gradient(circle, rgba(255, 255, 255, 0.15) 0 0.7px, transparent 1px) 0 0 / 11px 11px,
+      linear-gradient(125deg, rgba(15, 52, 45, 0.96), rgba(58, 48, 19, 0.9) 48%, rgba(24, 31, 58, 0.94));
+  }
+  .live-console-head {
+    background: linear-gradient(100deg, rgba(13, 70, 59, 0.88), rgba(72, 58, 17, 0.84) 56%, rgba(80, 29, 27, 0.75));
+  }
+  .live-step-complete {
+    background: linear-gradient(102deg, rgba(12, 64, 53, 0.8), rgba(22, 30, 32, 0.72) 72%, rgba(24, 31, 58, 0.62));
+  }
+  .live-step-current {
+    background: linear-gradient(102deg, rgba(82, 31, 27, 0.92), rgba(73, 60, 20, 0.86) 62%, rgba(24, 31, 58, 0.66));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 980px) and (min-width: 761px) {
+  .action-btn {
+    width: 2.25rem;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .action-btn .action-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .today-overview-head {
+    min-height: 0;
+  }
+
+  .today-route {
+    padding-top: 0.9rem;
+  }
+
+  .command-deck {
+    min-height: 0;
+  }
+
+  .command-deck-header {
+    align-items: flex-start;
+    padding-inline: 0.8rem;
+  }
+
+  .command-deck-heading h2 {
+    font-size: 0.95rem;
+  }
+
+  .command-deck-heading p {
+    font-size: 10px;
+  }
+
+  .command-deck-readout {
+    min-width: 82px;
+  }
+
+  .command-deck-readout strong {
+    font-size: 1.05rem;
+  }
+
+  .command-deck-roster {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-inline: 0.8rem;
+  }
+
+  .command-deck-member {
+    grid-template-columns: 38px minmax(0, 1fr) 16px;
+    min-height: 52px;
+  }
+
+  .command-deck-member-art {
+    width: 34px;
+    height: 34px;
+  }
+
+  .command-deck-progress {
+    padding-inline: 0.8rem;
+  }
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, currentColor 32%, transparent);
+}

@@ -1,0 +1,60 @@
+{
+  "name": "all-api-hub-checkin",
+  "description": "自助签到中转站 — 多站点多账号自动登录签到管理器",
+  "private": true,
+  "version": "0.2.2",
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yankang104/all-api-hub-nightly-chrome.git"
+  },
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "compile": "tsc --noEmit",
+    "test": "vitest run --maxWorkers=1",
+    "test:watch": "vitest",
+    "test:fixture": "vite build --config tests/e2e/fixture/vite.config.mjs",
+    "test:e2e": "node tests/e2e/e2e.mjs",
+    "test:ui": "node tests/e2e/ui-shots.mjs",
+    "test:proxy": "node tests/e2e/proxy-effective.mjs",
+    "test:proxy:scan-timeout": "node tests/e2e/proxy-scan-timeout.mjs",
+    "test:real:smoke": "node tests/smoke/real-site-smoke.mjs",
+    "test:real:smoke:syntax": "node --check tests/smoke/real-site-smoke.mjs",
+    "test:real:smoke:example": "node tests/smoke/real-site-smoke.mjs --targets tests/smoke/site-smoke-targets.example.json",
+    "test:real:site": "node tests/e2e/real-site-e2e.mjs",
+    "test:real:dump": "node tests/dev-probes/dump-checkin-page.mjs",
+    "test:icons": "node scripts/verify-icons.mjs",
+    "icons": "node scripts/gen-icons.mjs",
+    "postinstall": "wxt prepare"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.31.0",
+    "motion": "^13.0.0",
+    "pinyin-pro": "^3.29.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwind-merge": "^3.6.0",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/chrome": "^0.2.5",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@wxt-dev/module-react": "^1.2.2",
+    "jsdom": "^30.0.1",
+    "playwright": "1.62.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10",
+    "wxt": "^0.21.3"
+  }
+}

@@ -1,0 +1,5 @@
+import { createRoot } from 'react-dom/client';
+import { App } from '@/components/App';
+import '@/assets/tailwind.css';
+
+createRoot(document.getElementById('root')!).render(<App surface="sidepanel" />);
